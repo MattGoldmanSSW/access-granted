@@ -4,6 +4,12 @@ using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using AccessGranted.Services;
 using AccessGranted.Views;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
+using Microsoft.AppCenter.Auth;
+using Microsoft.AppCenter.Push;
+using AccessGranted.Helpers;
 
 namespace AccessGranted
 {
@@ -30,6 +36,9 @@ namespace AccessGranted
         protected override void OnStart()
         {
             // Handle when your app starts
+            AppCenter.Start("ios=" + Constants.AppCenterIosId +
+                  "android=" + Constants.AppCenterAndroidId,
+                  typeof(Analytics), typeof(Crashes), typeof(Auth), typeof(Push));
         }
 
         protected override void OnSleep()
