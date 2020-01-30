@@ -37,6 +37,34 @@ namespace SSW.Med_Man.MVC.Data
                 await userManager.CreateAsync(user, "DefaultAdminPassword1!");
                 await userManager.AddToRoleAsync(user, "Admin");
             }
+
+            if (!await roleManager.RoleExistsAsync("Doctor"))
+            {
+                var doctor = new IdentityRole("Doctor");
+                await roleManager.CreateAsync(doctor);
+
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "doctor@sswmedical.com"
+                };
+
+                await userManager.CreateAsync(user, "DoctorPassword1!");
+                await userManager.AddToRoleAsync(user, "Doctor");
+            }
+
+            if (!await roleManager.RoleExistsAsync("Nurse"))
+            {
+                var nurse = new IdentityRole("Nurse");
+                await roleManager.CreateAsync(nurse);
+
+                IdentityUser user = new IdentityUser
+                {
+                    UserName = "nurse@sswmedical.com"
+                };
+
+                await userManager.CreateAsync(user, "NursePassword1!");
+                await userManager.AddToRoleAsync(user, "Nurse");
+            }
         }
 
     }

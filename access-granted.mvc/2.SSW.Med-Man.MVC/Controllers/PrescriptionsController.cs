@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace SSW.Med_Man.MVC.Controllers
         }
 
         // GET: Prescriptions/Create
+        [Authorize(Roles = "Doctor")]
         public IActionResult Create()
         {
             ViewData["medication"] = new SelectList(_context.Medications, "Id", "name");
@@ -58,6 +60,7 @@ namespace SSW.Med_Man.MVC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Doctor")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("patientId,medicationId,dose,Id")] Prescription prescription)
         {
@@ -73,6 +76,7 @@ namespace SSW.Med_Man.MVC.Controllers
         }
 
         // GET: Prescriptions/Edit/5
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -94,6 +98,7 @@ namespace SSW.Med_Man.MVC.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
+        [Authorize(Roles = "Doctor")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("patientId,medicationId,dose,Id")] Prescription prescription)
         {
@@ -128,6 +133,7 @@ namespace SSW.Med_Man.MVC.Controllers
         }
 
         // GET: Prescriptions/Delete/5
+        [Authorize(Roles = "Doctor")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,6 +155,7 @@ namespace SSW.Med_Man.MVC.Controllers
 
         // POST: Prescriptions/Delete/5
         [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Doctor")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
