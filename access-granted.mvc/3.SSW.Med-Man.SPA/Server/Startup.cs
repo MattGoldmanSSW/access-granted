@@ -34,6 +34,7 @@ namespace SSW.Med_Man.MVC
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSwaggerDocument();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -54,6 +55,9 @@ namespace SSW.Med_Man.MVC
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSwaggerUi3();
+            app.UseOpenApi();
 
             app.UseAuthentication();
             app.UseAuthorization();

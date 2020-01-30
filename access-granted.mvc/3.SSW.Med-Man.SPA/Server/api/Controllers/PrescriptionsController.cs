@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SSW.Med_Man.MVC.Data;
+using SSW.Med_Man.MVC.DTOs;
 using SSW.Med_Man.MVC.Models;
 
 namespace SSW.Med_Man.MVC.api.Controllers
@@ -23,27 +24,70 @@ namespace SSW.Med_Man.MVC.api.Controllers
 
         // GET: api/Prescriptions
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Prescription>>> GetPrescriptions()
+        public async Task<ActionResult<IEnumerable<PrescriptionDTO>>> GetPrescriptions()
         {
-            return await _context.Prescriptions
+            List<PrescriptionDTO> prescriptions = new List<PrescriptionDTO>();
+
+            var presList =  await _context.Prescriptions
                 .Include(p => p.patient.FullName)
                 .Include(p => p.medication.name)
                 .ToListAsync();
+
+            foreach (var pres in presList)
+            {
+                prescriptions.Add(new PrescriptionDTO
+                {
+                    Dose = pres.dose,
+                    Id = pres.Id,
+                    Medication = new MedicationDTO
+                    {
+                        Id = pres.medicationId,
+                        Name = pres.medication.name
+                    },
+                    Patient = new PatientDTO
+                    {
+                        FamilyName = pres.patient.familyName,
+                        GivenName = pres.patient.firstName,
+                        Id = pres.patientId
+                    }
+
+                });
+            }
+
+            return prescriptions;
         }
 
         // GET: api/Prescriptions/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Prescription>> GetPrescription(int id)
+        public async Task<ActionResult<PrescriptionDTO>> GetPrescription(int id)
         {
-            var prescription = await _context.Prescriptions
+            var pres = await _context.Prescriptions
                 .Include(p => p.patient.FullName)
                 .Include(p => p.medication.name)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
-            if (prescription == null)
+            if (pres == null)
             {
                 return NotFound();
             }
+
+            var prescription = new PrescriptionDTO
+            {
+                Dose = pres.dose,
+                Id = pres.Id,
+                Medication = new MedicationDTO
+                {
+                    Id = pres.medicationId,
+                    Name = pres.medication.name
+                },
+                Patient = new PatientDTO
+                {
+                    FamilyName = pres.patient.familyName,
+                    GivenName = pres.patient.firstName,
+                    Id = pres.patientId
+                }
+
+            };
 
             return prescription;
         }
@@ -52,14 +96,18 @@ namespace SSW.Med_Man.MVC.api.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPrescription(int id, Prescription prescription)
+        public async Task<IActionResult> PutPrescription(int id, PrescriptionDTO prescription)
         {
             if (id != prescription.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(prescription).State = EntityState.Modified;
+            var pres = await  _context.Prescriptions.FirstOrDefaultAsync(p => p.Id == id);
+
+            pres.medicationId = prescription.Medication.Id;
+            pres.patientId = prescription.Patient.Id;
+            pres.dose = prescription.Dose;
 
             try
             {
@@ -84,17 +132,25 @@ namespace SSW.Med_Man.MVC.api.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Prescription>> PostPrescription(Prescription prescription)
+        public async Task<ActionResult<PrescriptionDTO>> PostPrescription(PrescriptionDTO prescription)
         {
-            _context.Prescriptions.Add(prescription);
+            var dbPres = new Prescription
+            {
+                dose = prescription.Dose,
+                patientId = prescription.Patient.Id,
+                medicationId = prescription.Medication.Id
+            };
+
+            _context.Prescriptions.Add(dbPres);
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPrescription", new { id = prescription.Id }, prescription);
+            return CreatedAtAction("GetPrescription", new { id = dbPres.Id }, prescription);
         }
 
         // DELETE: api/Prescriptions/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Prescription>> DeletePrescription(int id)
+        public async Task<ActionResult<PrescriptionDTO>> DeletePrescription(int id)
         {
             var prescription = await _context.Prescriptions.FindAsync(id);
             if (prescription == null)
@@ -102,10 +158,27 @@ namespace SSW.Med_Man.MVC.api.Controllers
                 return NotFound();
             }
 
+            var dto = new PrescriptionDTO
+            {
+                Dose = prescription.dose,
+                Medication = new MedicationDTO
+                {
+                    Id = prescription.medicationId,
+                    Name = prescription.medication.name
+                },
+                Id = id,
+                Patient = new PatientDTO
+                {
+                    FamilyName = prescription.patient.familyName,
+                    GivenName = prescription.patient.firstName,
+                    Id = prescription.patientId,
+                }
+            };
+
             _context.Prescriptions.Remove(prescription);
             await _context.SaveChangesAsync();
 
-            return prescription;
+            return dto;
         }
 
         private bool PrescriptionExists(int id)

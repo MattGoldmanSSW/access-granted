@@ -20,6 +20,9 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="NSwag.AspNetCore" Version="13.2.2" />
+    <PackageReference Include="NSwag.CodeGeneration.CSharp" Version="13.2.2" />
+    <PackageReference Include="NSwag.CodeGeneration.TypeScript" Version="13.2.2" />
   </ItemGroup>
 
 </Project>

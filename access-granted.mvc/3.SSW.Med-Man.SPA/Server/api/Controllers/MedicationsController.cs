@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SSW.Med_Man.MVC.Data;
+using SSW.Med_Man.MVC.DTOs;
 using SSW.Med_Man.MVC.Models;
 
 namespace SSW.Med_Man.MVC.api.Controllers
@@ -23,37 +24,58 @@ namespace SSW.Med_Man.MVC.api.Controllers
 
         // GET: api/Medications
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Medication>>> GetMedications()
+        public async Task<ActionResult<IEnumerable<MedicationDTO>>> GetMedications()
         {
-            return await _context.Medications.ToListAsync();
+            var meds =  await _context.Medications.ToListAsync();
+
+            var medList = new List<MedicationDTO>();
+
+            foreach(var med in meds)
+            {
+                medList.Add(new MedicationDTO
+                {
+                    Id = med.Id,
+                    Name = med.name
+                });
+            }
+
+            return medList;
         }
 
         // GET: api/Medications/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Medication>> GetMedication(int id)
+        public async Task<ActionResult<MedicationDTO>> GetMedication(int id)
         {
             var medication = await _context.Medications.FindAsync(id);
+
+            var medDTO = new MedicationDTO
+            {
+                Id = medication.Id,
+                Name = medication.name
+            };
 
             if (medication == null)
             {
                 return NotFound();
             }
 
-            return medication;
+            return medDTO;
         }
 
         // PUT: api/Medications/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedication(int id, Medication medication)
+        public async Task<IActionResult> PutMedication(int id, MedicationDTO medication)
         {
             if (id != medication.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(medication).State = EntityState.Modified;
+            var dbMed = await _context.Medications.FirstOrDefaultAsync(m => m.Id == id);
+
+            dbMed.name = medication.Name;
 
             try
             {
@@ -78,28 +100,38 @@ namespace SSW.Med_Man.MVC.api.Controllers
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see https://aka.ms/RazorPagesCRUD.
         [HttpPost]
-        public async Task<ActionResult<Medication>> PostMedication(Medication medication)
+        public async Task<ActionResult<MedicationDTO>> PostMedication(MedicationDTO medication)
         {
-            _context.Medications.Add(medication);
+            var med = new Medication
+            {
+                name = medication.Name
+            };
+
+            _context.Medications.Add(med);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetMedication", new { id = medication.Id }, medication);
+            return CreatedAtAction("GetMedication", new { id = med.Id }, medication);
         }
 
         // DELETE: api/Medications/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Medication>> DeleteMedication(int id)
+        public async Task<ActionResult<MedicationDTO>> DeleteMedication(int id)
         {
             var medication = await _context.Medications.FindAsync(id);
             if (medication == null)
             {
                 return NotFound();
             }
+            var dto = new MedicationDTO
+            {
+                Id = id,
+                Name = medication.name
+            };
 
             _context.Medications.Remove(medication);
             await _context.SaveChangesAsync();
 
-            return medication;
+            return dto;
         }
 
         private bool MedicationExists(int id)

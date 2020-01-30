@@ -133,16 +133,18 @@ namespace SSW.Med_Man.MVC.api.Controllers
         [HttpPost]
         public async Task<ActionResult<AdministrationDTO>> PostAdministrations(AdministrationDTO administration)
         {
-            _context.Administrations.Add(new Administrations
+            var admin = new Administrations
             {
                 dose = administration.Dose,
                 medicationId = administration.Medication.Id,
                 patientId = administration.Patient.Id,
                 timeGiven = administration.TimeGiven
-            });
+            };
+
+            _context.Administrations.Add(admin);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAdministrations", new { id = administration.Id }, administration);
+            return CreatedAtAction("GetAdministrations", new { id = admin.Id }, administration);
         }
 
         // DELETE: api/Administrations/5
