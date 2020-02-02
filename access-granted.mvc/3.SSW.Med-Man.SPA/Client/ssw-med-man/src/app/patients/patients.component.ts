@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PatientDTO } from '../../helpers/api-client';
+import { PatientService } from '../services/patient.service';
 
 @Component({
   selector: 'app-patients',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientsComponent implements OnInit {
 
-  constructor() { }
+  patientService: PatientService;
+
+  patients: PatientDTO[];
+
+  constructor(private patientsService: PatientService) {
+    this.patientService = patientsService;
+   }
 
   ngOnInit() {
+    
   }
 
 }
