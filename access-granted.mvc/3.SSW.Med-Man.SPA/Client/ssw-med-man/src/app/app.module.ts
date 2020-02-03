@@ -20,6 +20,8 @@ import { AdministrationsComponent } from './administrations/administrations.comp
 import { routing } from './app.routing';
 import { IdentityModule } from './identity/identity.module';
 import { HomeComponent } from './home/home.component';
+import { UserService } from './services/user.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -47,9 +49,10 @@ import { HomeComponent } from './home/home.component';
     BrowserAnimationsModule,
     routing,
     IdentityModule,
-    LottieAnimationViewModule
+    LottieAnimationViewModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

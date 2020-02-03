@@ -43,7 +43,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     flex-direction: row;
     min-width: 50%;
     align-items: flex-start;
-    justify-content: start;
+    justify-content: flex-start;
     align-content:  space-between;
 }
 

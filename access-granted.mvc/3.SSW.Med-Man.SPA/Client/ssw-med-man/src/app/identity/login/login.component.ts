@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginUserDTO } from '../../../helpers/api-client';
+
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,7 @@ export class LoginComponent implements OnInit {
 
   private anim: any;
   private animationSpeed: number;
+  loginUserDTO: LoginUserDTO = { email: '', password: ''};
 
   ngOnInit() {
       
