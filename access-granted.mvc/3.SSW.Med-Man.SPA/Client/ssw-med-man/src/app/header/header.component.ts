@@ -2,6 +2,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(userService: UserService, private _snackBar: MatSnackBar) {
+  constructor(userService: UserService, private _snackBar: MatSnackBar, private router: Router) {
     this.userService = userService;
    }
 
@@ -27,6 +28,7 @@ export class HeaderComponent implements OnInit {
     this.userService.logout();
     this.loggedIn = false;
     this._snackBar.open("You have been logged out", "OK" ,{ duration: 3000} );
+    this.router.navigate(['/home']);
   }
 
 }
