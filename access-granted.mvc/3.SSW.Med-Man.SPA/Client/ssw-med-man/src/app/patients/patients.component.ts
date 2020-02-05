@@ -13,7 +13,7 @@ export class PatientsComponent implements OnInit {
 
   patients: PatientDTO[] = [];
 
-  displayedColumns: string[] = ['name', 'dob'];
+  displayedColumns: string[] = ['name', 'dob', 'scripts', 'admins'];
 
   arePatients: boolean;
 
