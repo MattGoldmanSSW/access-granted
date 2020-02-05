@@ -109,6 +109,7 @@ namespace SSW.Med_Man.MVC.api.Controllers
 
             _context.Medications.Add(med);
             await _context.SaveChangesAsync();
+            medication.Id = med.Id;
 
             return CreatedAtAction("GetMedication", new { id = med.Id }, medication);
         }

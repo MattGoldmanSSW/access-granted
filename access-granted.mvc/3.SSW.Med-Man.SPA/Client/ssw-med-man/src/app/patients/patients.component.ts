@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PatientDTO } from '../../helpers/api-client';
 import { PatientService } from '../services/patient.service';
+import {MatDialog} from '@angular/material/dialog';
+import { MedListComponent } from '../med-list/med-list.component';
 
 @Component({
   selector: 'app-patients',

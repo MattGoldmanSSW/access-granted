@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
 import { MatButtonModule,
          MatCardModule,
+         MatDialogModule,
          MatMenuModule,
          MatToolbarModule,
          MatIconModule,
@@ -28,9 +29,11 @@ import { HomeComponent } from './home/home.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { PatientsClient } from '../helpers/api-client';
+import { PatientsClient, MedicationsClient } from '../helpers/api-client';
 import { TokenInterceptor } from './httpinterceptor';
 import { AddPatientsComponent } from './add-patients/add-patients.component';
+import { MedListComponent } from './med-list/med-list.component';
+import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +44,12 @@ import { AddPatientsComponent } from './add-patients/add-patients.component';
     PrescriptionsComponent,
     AdministrationsComponent,
     HomeComponent,
-    AddPatientsComponent
+    AddPatientsComponent,
+    MedListComponent,
+    AddMedsDialogComponent
+  ],
+  entryComponents: [
+    AddMedsDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +57,7 @@ import { AddPatientsComponent } from './add-patients/add-patients.component';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDatepickerModule,
+    MatDialogModule,
     MatNativeDateModule,
     MatFormFieldModule,
     MatInputModule,
@@ -77,7 +86,8 @@ import { AddPatientsComponent } from './add-patients/add-patients.component';
       multi: true
     },
     UserService,
-    PatientsClient
+    PatientsClient,
+    MedicationsClient
   ],
   bootstrap: [AppComponent]
 })

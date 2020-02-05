@@ -117,7 +117,7 @@ export class AdministrationsClient implements IAdministrationsClient {
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
+        if (status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <AdministrationDTO>JSON.parse(_responseText, this.jsonParseReviver);
@@ -455,7 +455,7 @@ export class MedicationsClient implements IMedicationsClient {
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
+        if (status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <MedicationDTO>JSON.parse(_responseText, this.jsonParseReviver);
@@ -998,7 +998,7 @@ export class PrescriptionsClient implements IPrescriptionsClient {
             (<any>response).error instanceof Blob ? (<any>response).error : undefined;
 
         let _headers: any = {}; if (response.headers) { for (let key of response.headers.keys()) { _headers[key] = response.headers.get(key); }};
-        if (status === 200) {
+        if (status === 201) {
             return blobToText(responseBlob).pipe(_observableMergeMap(_responseText => {
             let result200: any = null;
             result200 = _responseText === "" ? null : <PrescriptionDTO>JSON.parse(_responseText, this.jsonParseReviver);
@@ -1192,7 +1192,7 @@ export interface PrescriptionDTO {
 }
 
 export interface MedicationDTO {
-    id: number;
+    id?: number;
     name?: string | undefined;
 }
 
