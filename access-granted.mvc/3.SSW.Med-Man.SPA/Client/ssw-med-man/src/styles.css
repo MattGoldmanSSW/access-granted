@@ -38,7 +38,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     align-content:  space-between;
 }
 
-.flex-row {
+.flex-row-left {
     display: flex;
     flex-direction: row;
     min-width: 50%;
@@ -54,4 +54,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .page-table {
     min-width: 70%;
     align-items: center;
+}
+
+.add-patient {
+    min-width: 400px;
 }

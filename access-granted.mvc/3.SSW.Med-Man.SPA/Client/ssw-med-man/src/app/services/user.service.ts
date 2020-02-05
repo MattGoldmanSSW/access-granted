@@ -1,7 +1,7 @@
 import { Observable, from, BehaviorSubject } from 'rxjs';
 import {Injectable} from '@angular/core';
-import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { stringify } from '@angular/compiler/src/util';
+import { LoginUserDTO, AuthClient } from '../../helpers/api-client';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 
@@ -15,23 +15,19 @@ export class UserService{
 
     private loggedIn = false;
 
-    constructor(private http: HttpClient) {
+    constructor(private authClient: AuthClient) {
         this.loggedIn = !!localStorage.getItem('auth_token');
         this._authNavStatusSource.next(this.loggedIn);
         this.baseUrl = '';
     }
 
+    getToken(){
+      return localStorage.getItem('auth_token');
+    }
 
-    login(email, password) {
-        let headers = new HttpHeaders();
-        headers.append('Content-Type', 'application/json');
-
-        return this.http
-            .post<any>(
-                this.baseUrl + '/account/login',
-                JSON.stringify({email, password}), {headers}
-            )
-            .subscribe(
+    login(loginUser): Observable<Boolean> {
+        return this.authClient.login(loginUser).pipe(
+          map(
               (res) => { 
                 localStorage.setItem('auth_token', res.token);
                 this.loggedIn = true;
@@ -39,11 +35,12 @@ export class UserService{
                 console.log('Login succesful! Token received:');
                 console.log(res.token);
                 return true;
-            },
-            error => {
-              console.log('Error:');
-              console.log(error);
-            });
+              },
+              (error) => {
+                console.log('Error:');
+                console.log(error);
+                return false;
+              }));
     }
 
     logout(){

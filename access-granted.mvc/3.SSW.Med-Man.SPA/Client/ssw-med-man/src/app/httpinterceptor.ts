@@ -22,7 +22,7 @@ intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<an
     console.debug('appending bearer token to request:', request)
     request = request.clone({
        setHeaders: {
-          Authorization: `Bearer ${"<get your access token here"}`
+          Authorization: `Bearer ${localStorage.getItem('auth_token')}`
        }
     });
 

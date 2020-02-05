@@ -11,14 +11,22 @@ export class PatientsComponent implements OnInit {
 
   patientService: PatientService;
 
-  patients: PatientDTO[];
+  patients: PatientDTO[] = [];
+
+  displayedColumns: string[] = ['name', 'dob'];
+
+  arePatients: boolean;
 
   constructor(private patientsService: PatientService) {
     this.patientService = patientsService;
    }
 
   ngOnInit() {
-    
+    this.patientService.getPatients()
+    .subscribe(result => {
+      this.patients = result;
+      this.arePatients = this.patients.length > 0;
+    });
   }
 
 }

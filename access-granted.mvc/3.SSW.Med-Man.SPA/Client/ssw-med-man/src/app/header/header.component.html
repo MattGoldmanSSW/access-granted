@@ -5,7 +5,7 @@
       <button mat-button [matMenuTriggerFor]="patientMenu">Patients</button>
       <mat-menu #patientMenu="matMenu">
         <button mat-menu-item routerLink="/patients">View Patients</button>  
-        <button mat-menu-item routerLink="/patients">Add Patient</button>  
+        <button mat-menu-item routerLink="/addPatient">Add Patient</button>  
       </mat-menu>
       <button mat-button [matMenuTriggerFor]="medMenu">Medications</button>
       <mat-menu #medMenu="matMenu">
@@ -24,7 +24,7 @@
       </mat-menu>
     </span>
     <div class="flex-spacer"></div>
-    <button *ngIf="loggedIn" mat-button>Logout</button>
+    <button *ngIf="loggedIn" mat-button (click)="logout()">Logout</button>
     <button *ngIf="!loggedIn" mat-button routerLink="/login">Login</button>
   </mat-toolbar>
 </nav>
