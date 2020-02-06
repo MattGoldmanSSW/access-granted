@@ -36,6 +36,7 @@ import { AddPatientsComponent } from './add-patients/add-patients.component';
 import { MedListComponent } from './med-list/med-list.component';
 import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.component';
 import { AddPrescriptionComponent } from './add-prescription/add-prescription.component';
+import { AddAdministrationComponent } from './add-administration/add-administration.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { AddPrescriptionComponent } from './add-prescription/add-prescription.co
     AddPatientsComponent,
     MedListComponent,
     AddMedsDialogComponent,
-    AddPrescriptionComponent
+    AddPrescriptionComponent,
+    AddAdministrationComponent
   ],
   entryComponents: [
     AddMedsDialogComponent

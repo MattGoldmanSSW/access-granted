@@ -1171,7 +1171,7 @@ export interface AdministrationDTO {
     patient?: PatientDTO | undefined;
     medication?: MedicationDTO | undefined;
     dose: number;
-    timeGiven: Date;
+    timeGiven?: Date;
 }
 
 export interface PatientDTO {

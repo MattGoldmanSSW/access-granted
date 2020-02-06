@@ -8,6 +8,7 @@ import { LoginComponent } from './identity/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AddPatientsComponent } from './add-patients/add-patients.component';
 import { AddPrescriptionComponent } from './add-prescription/add-prescription.component';
+import { AddAdministrationComponent } from './add-administration/add-administration.component';
 
 const appRoutes: Routes =[
     {path: 'patients', component:PatientsComponent},
@@ -16,6 +17,7 @@ const appRoutes: Routes =[
     {path: 'prescriptions', component: PrescriptionsComponent},
     {path: 'addPrescription', component: AddPrescriptionComponent},
     {path: 'administrations', component: AdministrationsComponent},
+    {path: 'addAdministration', component: AddAdministrationComponent},
     {path: 'login', component: LoginComponent},
     {path: 'home', component:HomeComponent}
 ];
