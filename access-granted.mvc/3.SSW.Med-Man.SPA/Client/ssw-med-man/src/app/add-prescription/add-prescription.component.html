@@ -10,30 +10,30 @@
         </mat-card-header>
         <mat-card-content fxLayout="column">
             <mat-form-field>
-                <input name="patientInput" matInput placeholder="Patient" [matAutocomplete]="pat" [ngModel]="addScriptDTO.patient" [formControl]="patientControl">
+                <input name="patientInput" matInput placeholder="Patient" [matAutocomplete]="pat" [formControl]="patientControl">
                 <mat-autocomplete #pat="matAutocomplete" [displayWith]="displayPatientFn">
-                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient.id">
                     <span>{{patient.fullName}}</span>
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
         <br/>
             <mat-form-field>
-                <input name="medicationInput" matInput placeholder="Medication" [matAutocomplete]="med" [ngModel]="addScriptDTO.medication" [formControl]="medicationControl">
+                <input name="medicationInput" matInput placeholder="Medication" [matAutocomplete]="med" [formControl]="medicationControl">
                 <mat-autocomplete #med="matAutocomplete" [displayWith]="displayMedicationFn">
-                    <mat-option *ngFor="let medication of filteredMeds | async" [value]="medication">
+                    <mat-option *ngFor="let medication of filteredMeds | async" [value]="medication.id">
                     <span>{{medication.name}}</span>
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
 <br/>    
             <mat-form-field>
-                <input name="dose" matInput placeholder="Dose (mg)" [ngModel]="addScriptDTO.dose">
+                <input name="dose" matInput placeholder="Dose (mg)" [formControl]="doseControl">
             </mat-form-field>
             <br>
         </mat-card-content>
         <mat-card-actions align="end">
-          <button mat-raised-button color="primary" type="submit">Add</button>
+          <button mat-raised-button color="primary" type="submit" (click)="addPrescription()">Add</button>
         </mat-card-actions>
       </mat-card>
     </form>

@@ -1175,11 +1175,11 @@ export interface AdministrationDTO {
 }
 
 export interface PatientDTO {
-    id: number;
+    id?: number;
     givenName?: string | undefined;
     familyName?: string | undefined;
     fullName?: string | undefined;
-    dob: Date;
+    dob?: Date;
     prescriptions?: PrescriptionDTO[] | undefined;
     administrations?: AdministrationDTO[] | undefined;
 }

@@ -13,7 +13,7 @@ import { map, startWith } from 'rxjs/operators';
 })
 export class AddPrescriptionComponent implements OnInit {
 
-  addScriptDTO: PrescriptionDTO = {id: null, medication: null, patient: null, dose: null};
+  addScriptDTO: PrescriptionDTO = {id: 0, medication:{}, patient: {}, dose: 0};
 
   constructor(private scriptClient: PrescriptionsClient, private router: Router, private _snakBar: MatSnackBar, private patientsClient: PatientsClient, private medicationsClient: MedicationsClient) { }
 
@@ -25,6 +25,7 @@ export class AddPrescriptionComponent implements OnInit {
 
   medicationControl = new FormControl;
   patientControl = new FormControl;
+  doseControl = new FormControl;
 
   ngOnInit() {
     this.patientsClient.getPatients()
@@ -60,8 +61,13 @@ export class AddPrescriptionComponent implements OnInit {
     return medication ? medication.name : undefined;
   }
 
-  addPatient({value} : {value : PrescriptionDTO }){
-    this.scriptClient.postPrescription(value)
+  addPrescription(){
+    this.addScriptDTO.dose = +this.doseControl.value;
+    this.addScriptDTO.medication.id = this.medicationControl.value;
+    this.addScriptDTO.patient.id = this.patientControl.value;
+    console.log("Adding prescription:");
+    console.log(this.addScriptDTO);
+    this.scriptClient.postPrescription(this.addScriptDTO)
     .subscribe(
       result => {
         if(result) {
