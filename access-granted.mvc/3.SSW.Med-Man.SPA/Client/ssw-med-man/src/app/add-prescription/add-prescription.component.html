@@ -1,0 +1,39 @@
+<div class="flex-container login-main">
+    <div class="flex-row">
+      <h1 class="page-heading">Prescriptions</h1>
+    </div>
+    <div class="flex-row page-table">
+        <form>
+      <mat-card class="child page-table add-patient">
+        <mat-card-header>
+          <mat-card-title>Prescribe Medication</mat-card-title>
+        </mat-card-header>
+        <mat-card-content fxLayout="column">
+            <mat-form-field>
+                <input name="patientInput" matInput placeholder="Patient" [matAutocomplete]="auto" [ngModel]="addScriptDTO.patient" [formControl]="patientControl">
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPatientFn">
+                    <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
+                    <span>{{patient.fullName}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+<br><!--
+            <mat-form-field>
+                <input name="familyName" matInput placeholder="Family Name" [ngModel]="addPatientDTO.familyName" #familyName="ngModel">
+            </mat-form-field>
+<br>
+            <mat-form-field>
+                <input [matDatepicker]="dobDatePicker" name="dob" matInput placeholder="Date of Birth" [ngModel]="addPatientDTO.dob" #dob="ngModel">
+                <mat-datepicker-toggle matSuffix [for]="dobDatePicker"></mat-datepicker-toggle>
+                <mat-datepicker #dobDatePicker></mat-datepicker>
+            </mat-form-field>-->
+            <br>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-raised-button color="primary" type="submit">Add</button>
+        </mat-card-actions>
+      </mat-card>
+    </form>
+    </div>
+    
+  </div>

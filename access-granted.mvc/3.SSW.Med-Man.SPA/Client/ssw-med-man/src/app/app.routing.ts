@@ -7,12 +7,14 @@ import { PatientsComponent } from './patients/patients.component';
 import { LoginComponent } from './identity/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AddPatientsComponent } from './add-patients/add-patients.component';
+import { AddPrescriptionComponent } from './add-prescription/add-prescription.component';
 
 const appRoutes: Routes =[
     {path: 'patients', component:PatientsComponent},
     {path: 'addPatient', component:AddPatientsComponent},
     {path: 'medications', component: MedicationsComponent},
     {path: 'prescriptions', component: PrescriptionsComponent},
+    {path: 'addPrescription', component: AddPrescriptionComponent},
     {path: 'administrations', component: AdministrationsComponent},
     {path: 'login', component: LoginComponent},
     {path: 'home', component:HomeComponent}

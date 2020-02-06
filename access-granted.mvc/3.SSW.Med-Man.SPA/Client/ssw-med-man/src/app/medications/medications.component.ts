@@ -55,23 +55,24 @@ export class MedicationsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       this.newMed.name = result;
-      console.log("Adding this medication:");
-      console.log(this.newMed);
-      this.medsClient.postMedication(this.newMed)
-      .subscribe(
-        result => {
-          console.log("Result:");
-          console.log(result);
-          this.data.push(result);
-          this.notify();
-          this.areMedications = this.data.length > 0;
-          this._snackBar.open('Medication added', 'OK', {duration: 3000});
-        },
-        error => {
-          console.log(error);
-          this._snackBar.open('Adding medication failed', 'OK', {duration: 3000});
-        }
-      );
+      if(result != null) {
+        console.log("Adding this medication:");
+        console.log(this.newMed);
+        this.medsClient.postMedication(this.newMed)
+        .subscribe(
+          result => {
+            console.log("Result:");
+            console.log(result);
+            this.data.push(result);
+            this.notify();
+            this.areMedications = this.data.length > 0;
+            this._snackBar.open('Medication added', 'OK', {duration: 3000});
+          },
+          error => {
+            console.log(error);
+            this._snackBar.open('Adding medication failed', 'OK', {duration: 3000});
+        });
+      }
     });
   }
 

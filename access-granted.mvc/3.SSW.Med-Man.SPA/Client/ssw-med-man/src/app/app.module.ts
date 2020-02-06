@@ -18,7 +18,8 @@ import { MatButtonModule,
          MatSnackBarModule,
          MatTableModule,
          MatDatepickerModule,
-         MatNativeDateModule} from '@angular/material';
+         MatNativeDateModule,
+         MatAutocompleteModule} from '@angular/material';
 import { PatientsComponent } from './patients/patients.component';
 import { MedicationsComponent } from './medications/medications.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
@@ -28,12 +29,13 @@ import { IdentityModule } from './identity/identity.module';
 import { HomeComponent } from './home/home.component';
 import { UserService } from './services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { PatientsClient, MedicationsClient } from '../helpers/api-client';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PatientsClient, MedicationsClient, PrescriptionsClient, AdministrationsClient } from '../helpers/api-client';
 import { TokenInterceptor } from './httpinterceptor';
 import { AddPatientsComponent } from './add-patients/add-patients.component';
 import { MedListComponent } from './med-list/med-list.component';
 import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.component';
+import { AddPrescriptionComponent } from './add-prescription/add-prescription.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,8 @@ import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.compon
     HomeComponent,
     AddPatientsComponent,
     MedListComponent,
-    AddMedsDialogComponent
+    AddMedsDialogComponent,
+    AddPrescriptionComponent
   ],
   entryComponents: [
     AddMedsDialogComponent
@@ -55,6 +58,7 @@ import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.compon
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    MatAutocompleteModule,
     MatButtonModule,
     MatDatepickerModule,
     MatDialogModule,
@@ -77,7 +81,8 @@ import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.compon
     IdentityModule,
     LottieAnimationViewModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     {
@@ -87,7 +92,9 @@ import { AddMedsDialogComponent } from './add-meds-dialog/add-meds-dialog.compon
     },
     UserService,
     PatientsClient,
-    MedicationsClient
+    MedicationsClient,
+    PrescriptionsClient,
+    AdministrationsClient
   ],
   bootstrap: [AppComponent]
 })

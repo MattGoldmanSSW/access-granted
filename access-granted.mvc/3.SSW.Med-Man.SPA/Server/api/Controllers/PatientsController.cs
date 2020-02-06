@@ -27,54 +27,18 @@ namespace SSW.Med_Man.MVC.api.Controllers
         public async Task<ActionResult<IEnumerable<PatientDTO>>> GetPatients()
         {
             var patList = await _context.Patients
-                .Include(p => p.prescriptions)
-                .Include(p => p.administrations)
                 .ToListAsync();
 
             var dtoList = new List<PatientDTO>();
 
             foreach(var pat in patList)
             {
-                var admins = new List<AdministrationDTO>();
-                var scripts = new List<PrescriptionDTO>();
-
-                foreach(var admin in pat.administrations)
-                {
-                    admins.Add(new AdministrationDTO
-                    {
-                        Id = admin.Id,
-                        Dose = admin.dose,
-                        Medication = new MedicationDTO
-                        {
-                            Id = admin.medicationId,
-                            Name = admin.medication.name
-                        },
-                        TimeGiven = admin.timeGiven
-                    });
-                };
-
-                foreach(var script in pat.prescriptions)
-                {
-                    scripts.Add(new PrescriptionDTO
-                    {
-                        Id = script.Id,
-                        Dose = script.dose,
-                        Medication = new MedicationDTO
-                        {
-                            Id = script.medicationId,
-                            Name = script.medication.name
-                        }
-                    });
-                }
-
                 dtoList.Add(new PatientDTO
                 {
                     Id = pat.Id,
                     FamilyName = pat.familyName,
                     GivenName = pat.firstName,
-                    DOB = pat.DOB,
-                    Administrations = admins,
-                    Prescriptions = scripts
+                    DOB = pat.DOB
                 });
             }
 
