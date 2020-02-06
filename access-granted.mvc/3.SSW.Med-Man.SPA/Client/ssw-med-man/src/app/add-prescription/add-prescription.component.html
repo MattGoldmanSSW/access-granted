@@ -10,23 +10,26 @@
         </mat-card-header>
         <mat-card-content fxLayout="column">
             <mat-form-field>
-                <input name="patientInput" matInput placeholder="Patient" [matAutocomplete]="auto" [ngModel]="addScriptDTO.patient" [formControl]="patientControl">
-                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayPatientFn">
+                <input name="patientInput" matInput placeholder="Patient" [matAutocomplete]="pat" [ngModel]="addScriptDTO.patient" [formControl]="patientControl">
+                <mat-autocomplete #pat="matAutocomplete" [displayWith]="displayPatientFn">
                     <mat-option *ngFor="let patient of filteredPatients | async" [value]="patient">
                     <span>{{patient.fullName}}</span>
                     </mat-option>
                 </mat-autocomplete>
             </mat-form-field>
-<br><!--
+        <br/>
             <mat-form-field>
-                <input name="familyName" matInput placeholder="Family Name" [ngModel]="addPatientDTO.familyName" #familyName="ngModel">
+                <input name="medicationInput" matInput placeholder="Medication" [matAutocomplete]="med" [ngModel]="addScriptDTO.medication" [formControl]="medicationControl">
+                <mat-autocomplete #med="matAutocomplete" [displayWith]="displayMedicationFn">
+                    <mat-option *ngFor="let medication of filteredMeds | async" [value]="medication">
+                    <span>{{medication.name}}</span>
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+<br/>    
+            <mat-form-field>
+                <input name="dose" matInput placeholder="Dose (mg)" [ngModel]="addScriptDTO.dose">
             </mat-form-field>
-<br>
-            <mat-form-field>
-                <input [matDatepicker]="dobDatePicker" name="dob" matInput placeholder="Date of Birth" [ngModel]="addPatientDTO.dob" #dob="ngModel">
-                <mat-datepicker-toggle matSuffix [for]="dobDatePicker"></mat-datepicker-toggle>
-                <mat-datepicker #dobDatePicker></mat-datepicker>
-            </mat-form-field>-->
             <br>
         </mat-card-content>
         <mat-card-actions align="end">
