@@ -1167,7 +1167,7 @@ export class PrescriptionsClient implements IPrescriptionsClient {
 }
 
 export interface AdministrationDTO {
-    id: number;
+    id?: number;
     patient?: PatientDTO | undefined;
     medication?: MedicationDTO | undefined;
     dose: number;

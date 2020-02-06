@@ -29,8 +29,8 @@ namespace SSW.Med_Man.MVC.api.Controllers
             List<AdministrationDTO> administrations = new List<AdministrationDTO>();
 
             var dbMeds = await _context.Administrations
-                .Include(a => a.patient.FullName)
-                .Include(a => a.medication.name)
+                .Include(a => a.patient)
+                .Include(a => a.medication)
                 .ToListAsync();
 
             foreach(var med in dbMeds)
@@ -61,8 +61,8 @@ namespace SSW.Med_Man.MVC.api.Controllers
         public async Task<ActionResult<AdministrationDTO>> GetAdministrations(int id)
         {
             var administrations = await _context.Administrations
-                .Include(a => a.patient.FullName)
-                .Include(a => a.medication.name)
+                .Include(a => a.patient)
+                .Include(a => a.medication)
                 .FirstOrDefaultAsync(a => a.Id == id);
 
             if (administrations == null)

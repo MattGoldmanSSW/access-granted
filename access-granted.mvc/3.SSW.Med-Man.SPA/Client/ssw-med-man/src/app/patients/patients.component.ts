@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PatientDTO } from '../../helpers/api-client';
-import { PatientService } from '../services/patient.service';
+import { PatientDTO, PatientsClient } from '../../helpers/api-client';
 import {MatDialog} from '@angular/material/dialog';
 import { MedListComponent } from '../med-list/med-list.component';
 
@@ -11,20 +10,16 @@ import { MedListComponent } from '../med-list/med-list.component';
 })
 export class PatientsComponent implements OnInit {
 
-  patientService: PatientService;
-
   patients: PatientDTO[] = [];
 
   displayedColumns: string[] = ['name', 'dob', 'scripts', 'admins'];
 
   arePatients: boolean;
 
-  constructor(private patientsService: PatientService) {
-    this.patientService = patientsService;
-   }
+  constructor(private patientClient: PatientsClient) { }
 
   ngOnInit() {
-    this.patientService.getPatients()
+    this.patientClient.getPatients()
     .subscribe(result => {
       this.patients = result;
       this.arePatients = this.patients.length > 0;

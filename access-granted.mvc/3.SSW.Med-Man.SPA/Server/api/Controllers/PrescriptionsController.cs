@@ -29,8 +29,8 @@ namespace SSW.Med_Man.MVC.api.Controllers
             List<PrescriptionDTO> prescriptions = new List<PrescriptionDTO>();
 
             var presList =  await _context.Prescriptions
-                .Include(p => p.patient.FullName)
-                .Include(p => p.medication.name)
+                .Include(p => p.patient)
+                .Include(p => p.medication)
                 .ToListAsync();
 
             foreach (var pres in presList)
@@ -62,8 +62,8 @@ namespace SSW.Med_Man.MVC.api.Controllers
         public async Task<ActionResult<PrescriptionDTO>> GetPrescription(int id)
         {
             var pres = await _context.Prescriptions
-                .Include(p => p.patient.FullName)
-                .Include(p => p.medication.name)
+                .Include(p => p.patient)
+                .Include(p => p.medication)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
             if (pres == null)

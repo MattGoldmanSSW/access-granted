@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AdministrationsClient, AdministrationDTO } from '../../helpers/api-client';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-administrations',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdministrationsComponent implements OnInit {
 
-  constructor() { }
+  constructor(private adminClient: AdministrationsClient, private dialog: MatDialog, private snackBar: MatSnackBar) { }
+
+  displayedColumns: string[] = ['patientName', 'medication','dose', 'timeGiven'];
+
+  administrations: AdministrationDTO[] = [];
+
+  areAdmins: boolean;
 
   ngOnInit() {
-  }
-
+    this.adminClient.getAdministrationsAll()
+    .subscribe(
+      (result) => {
+        this.administrations = result;
+        this.areAdmins = this.administrations.length > 0;
+      });
+  }  
 }
