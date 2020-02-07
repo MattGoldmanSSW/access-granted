@@ -39,6 +39,8 @@ namespace SSW.Med_Man.MVC
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //Add this to startup config to require auth across the whole application:
             services.AddMvc(config =>
             {
                 var policy = new AuthorizationPolicyBuilder()
