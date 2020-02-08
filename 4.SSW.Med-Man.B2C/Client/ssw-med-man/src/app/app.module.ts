@@ -27,7 +27,6 @@ import { AdministrationsComponent } from './administrations/administrations.comp
 import { routing } from './app.routing';
 import { IdentityModule } from './identity/identity.module';
 import { HomeComponent } from './home/home.component';
-import { UserService } from './services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientsClient, MedicationsClient, PrescriptionsClient, AdministrationsClient } from '../helpers/api-client';
@@ -39,6 +38,7 @@ import { AddPrescriptionComponent } from './add-prescription/add-prescription.co
 import { AddAdministrationComponent } from './add-administration/add-administration.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { UnauthComponent } from './unauth/unauth.component';
+import { MsalService } from './msal.service';
 
 export function JwtTokenGetter() {
   return localStorage.getItem("auth_token");
@@ -104,11 +104,11 @@ export function JwtTokenGetter() {
       useClass: TokenInterceptor,
       multi: true
     },
-    UserService,
     PatientsClient,
     MedicationsClient,
     PrescriptionsClient,
-    AdministrationsClient
+    AdministrationsClient,
+    MsalService
   ],
   bootstrap: [AppComponent]
 })

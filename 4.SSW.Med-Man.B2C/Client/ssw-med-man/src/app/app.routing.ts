@@ -3,7 +3,6 @@ import { AdministrationsComponent } from './administrations/administrations.comp
 import { MedicationsComponent } from './medications/medications.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { PatientsComponent } from './patients/patients.component';
-import { LoginComponent } from './identity/login/login.component';
 import { HomeComponent } from './home/home.component';
 import { AddPatientsComponent } from './add-patients/add-patients.component';
 import { AddPrescriptionComponent } from './add-prescription/add-prescription.component';
@@ -20,7 +19,6 @@ const appRoutes: Routes =[
     {path: 'addPrescription', component: AddPrescriptionComponent, canActivate: [RoleGuardService], data: {expectedRole: "Doctor"}},
     {path: 'administrations', component: AdministrationsComponent},
     {path: 'addAdministration', component: AddAdministrationComponent, canActivate: [RoleGuardService], data: {expectedRole: "Nurse"}},
-    {path: 'login', component: LoginComponent},
     {path: 'home', component:HomeComponent},
     {path: 'unauth', component: UnauthComponent}
 ];
