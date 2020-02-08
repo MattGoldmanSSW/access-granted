@@ -18,6 +18,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication.AzureADB2C.UI;
+using Microsoft.AspNetCore.Authentication;
 
 namespace SSW.Med_Man.MVC
 {
@@ -41,6 +43,10 @@ namespace SSW.Med_Man.MVC
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
+            /*
+             * Replace this:
+             * -------------
+             * 
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -58,6 +64,14 @@ namespace SSW.Med_Man.MVC
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWTConfiguration:SigningKey"]))
                 };
             });
+            *
+            * with this:
+            * -----------
+            */
+            services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
+                .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
+            
+            //end replace
 
             services.AddMvc(config =>
             {
