@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
-import { MsalService } from './msal.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +11,13 @@ export class AppComponent {
   title = 'SSW.Medication-Manager';
   router: Router;
   loggedIn: boolean;
-  msalService: MsalService;
+  userService: UserService;
 
-  constructor(private myRouter: Router, private msalSvc: MsalService) {
+  constructor(private myRouter: Router, private userSvc: UserService) {
     this.router = myRouter;
-    this.msalService = msalSvc;
+    this.userService = userSvc;
 
-    this.loggedIn = this.msalService.isLoggedIn();
+    this.loggedIn = this.userService.isLoggedIn();
     this.router.navigate(['/home']);
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit,Input } from '@angular/core';
+import { UserService } from '../services/user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subscription } from 'rxjs';
 import { Router } from '@angular/router';
-import { MsalService } from '../msal.service';
 
 @Component({
   selector: 'app-header',
@@ -11,22 +11,21 @@ import { MsalService } from '../msal.service';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(msalService: MsalService, private _snackBar: MatSnackBar, private router: Router) {
-    this.msalService = msalService;
+  constructor(userService: UserService, private _snackBar: MatSnackBar, private router: Router) {
+    this.userService = userService;
    }
 
   @Input()
   loggedIn: boolean;
   subscription: Subscription;
-  msalService: MsalService;
+  userService: UserService;
 
   ngOnInit() {
-    this.loggedIn = this.msalService.isLoggedIn();
-    //this.subscription = this.userService.authNavStatus$.subscribe(loggedin => this.loggedIn = loggedin);
+    this.subscription = this.userService.authNavStatus$.subscribe(loggedin => this.loggedIn = loggedin);
   }
 
   logout(){
-    this.msalService.logout();
+    this.userService.logout();
     this.loggedIn = false;
     this._snackBar.open("You have been logged out", "OK" ,{ duration: 3000} );
     this.router.navigate(['/home']);

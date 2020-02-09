@@ -27,6 +27,7 @@ import { AdministrationsComponent } from './administrations/administrations.comp
 import { routing } from './app.routing';
 import { IdentityModule } from './identity/identity.module';
 import { HomeComponent } from './home/home.component';
+import { UserService } from './services/user.service';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PatientsClient, MedicationsClient, PrescriptionsClient, AdministrationsClient } from '../helpers/api-client';
@@ -38,7 +39,7 @@ import { AddPrescriptionComponent } from './add-prescription/add-prescription.co
 import { AddAdministrationComponent } from './add-administration/add-administration.component';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { UnauthComponent } from './unauth/unauth.component';
-import { MsalService } from './msal.service';
+import { MsalModule } from '@azure/msal-angular'
 
 export function JwtTokenGetter() {
   return localStorage.getItem("auth_token");
@@ -96,6 +97,20 @@ export function JwtTokenGetter() {
       config: {
         tokenGetter: JwtTokenGetter
       }
+    }),
+    MsalModule.forRoot({
+      clientID: "d31fe268-a410-4a9f-9ce0-a91078f75396",
+      authority: "https://goldiessw.b2clogin.com/tfp/goldiessw.onmicrosoft.com/B2C_1_signupandsignin",
+      redirectUri: "https://localhost:4200",
+      validateAuthority : false,
+      cacheLocation : "localStorage",
+      storeAuthStateInCookie: false, // dynamically set to true when IE11
+      postLogoutRedirectUri: "https://localhost:4200",
+      navigateToLoginRequestUrl : true,
+      popUp: true,
+      consentScopes: ["user_impersonation"],
+      unprotectedResources: ["https://angularjs.org/"],
+      correlationId: '1234'
     })
   ],
   providers: [
@@ -104,11 +119,11 @@ export function JwtTokenGetter() {
       useClass: TokenInterceptor,
       multi: true
     },
+    UserService,
     PatientsClient,
     MedicationsClient,
     PrescriptionsClient,
-    AdministrationsClient,
-    MsalService
+    AdministrationsClient
   ],
   bootstrap: [AppComponent]
 })

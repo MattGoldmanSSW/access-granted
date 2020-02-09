@@ -2,6 +2,7 @@ import { Observable, from, BehaviorSubject } from 'rxjs';
 import {Injectable} from '@angular/core';
 import { LoginUserDTO, AuthClient } from '../../helpers/api-client';
 import { map } from 'rxjs/operators';
+import { MsalService } from '@azure/msal-angular';
 
 @Injectable()
 
@@ -15,7 +16,7 @@ export class UserService{
 
     private loggedIn = false;
 
-    constructor(private authClient: AuthClient) {
+    constructor(private authClient: AuthClient, private authService: MsalService) {
         this.loggedIn = !!localStorage.getItem('auth_token');
         this._authNavStatusSource.next(this.loggedIn);
         this.baseUrl = '';
@@ -23,6 +24,23 @@ export class UserService{
 
     getToken(){
       return localStorage.getItem('auth_token');
+    }
+
+    loginB2C() {
+      const isIE = window.navigator.userAgent.indexOf("MSIE ") > -1 || window.navigator.userAgent.indexOf("Trident/") > -1;
+
+      if (isIE) {
+        this.authService.loginRedirect();
+      } else {
+        this.authService.loginPopup()
+        .then((result) => {
+          console.log("Result:");
+          console.log(result);
+          localStorage.setItem('auth_token', result);
+          this.loggedIn = true;
+          this._authNavStatusSource.next(true);
+        });
+      }
     }
 
     login(loginUser): Observable<Boolean> {
@@ -51,5 +69,8 @@ export class UserService{
 
     isLoggedIn() {
         return this.loggedIn;
+    }
+
+    ngOnInit(){
     }
 }
