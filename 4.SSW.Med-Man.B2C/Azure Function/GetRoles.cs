@@ -26,40 +26,17 @@ namespace Company.Function
             log.LogInformation(requestBody);
 
             string email = data?.email;
-            string address;
 
-            string title = data?.title;
+            string title = data?.jobTitle;
 
-            if(!string.IsNullOrWhiteSpace(email))
-            {
-                address = email;
-            }
-            else
-            {
-                return new BadRequestObjectResult("Please pass an email on the query string or in the request body");
-            }
-
-            /*string[] parts = address.Split('@');
-            return parts[0] != null
-                ? (ActionResult)new OkObjectResult(
-                new ResponseContent
-                {
-                    version = "1.1.0",
-                    status = (int) HttpStatusCode.OK,
-                    role = GetRole(parts[1])
-                })
-                : new BadRequestObjectResult("Please pass an email on the query string or in the request body");
-                */
-            return title != null
-                ? (ActionResult)new OkObjectResult(
+            return (ActionResult)new OkObjectResult(
                     new ResponseContent
                     {
                         version = "1.1.0",
                         status = (int) HttpStatusCode.OK,
                         role = GetRole(title)
                     }
-                )
-                : new BadRequestObjectResult("No job title received");
+                );
         }
         public static string GetRole(string emailPart)
         {
@@ -75,7 +52,6 @@ namespace Company.Function
                     return "Patient";
             }
         }
-
     }
 
     public class ResponseContent
