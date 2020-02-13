@@ -43,10 +43,10 @@ namespace SSW.Med_Man.MVC
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 
-            /*
-             * Replace this:
-             * -------------
-             * 
+            
+            // Replace this:
+             
+            /* 
             services.AddAuthentication(option =>
             {
                 option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -64,10 +64,12 @@ namespace SSW.Med_Man.MVC
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["JWTConfiguration:SigningKey"]))
                 };
             });
-            *
-            * with this:
-            * -----------
             */
+            
+
+            //with this:
+            
+            
             services.AddAuthentication(AzureADB2CDefaults.BearerAuthenticationScheme)
                 .AddAzureADB2CBearer(options => Configuration.Bind("AzureAdB2C", options));
             
@@ -88,7 +90,6 @@ namespace SSW.Med_Man.MVC
                     builder => builder.AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader());
-                    //.AllowCredentials());
             });
             services.AddControllersWithViews();
             services.AddRazorPages();
