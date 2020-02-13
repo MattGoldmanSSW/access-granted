@@ -17,7 +17,7 @@ export class AuthService {
       client_id: "UKSaSc3DDhDA90RJJdv9EQE251nNv1hn",
       redirect_uri: `${window.location.origin}`,
       audience: 'https://localhost:44348/api',
-      scope: 'roles'
+      scope: 'openid%20profile%20roles'
     })
   ) as Observable<Auth0Client>).pipe(
     shareReplay(1), // Every subscription receives the same shared value
