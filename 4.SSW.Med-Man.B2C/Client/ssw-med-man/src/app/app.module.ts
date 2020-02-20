@@ -100,7 +100,7 @@ export function JwtTokenGetter() {
     }),
     MsalModule.forRoot({
       clientID: "d31fe268-a410-4a9f-9ce0-a91078f75396",
-      authority: "https://goldiessw.b2clogin.com/tfp/goldiessw.onmicrosoft.com/B2C_1_signupandsignin",
+      authority: "https://goldiessw.b2clogin.com/tfp/goldiessw.onmicrosoft.com/B2C_1A_signup_signin",
       redirectUri: "https://localhost:4200",
       validateAuthority : false,
       cacheLocation : "localStorage",
