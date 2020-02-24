@@ -50,6 +50,10 @@ namespace SSW.Med_Man.MVC
             {
                 jwtOptions.Authority = "https://accessgranted.au.auth0.com/";
                 jwtOptions.Audience = "https://localhost:44348/api";
+                jwtOptions.TokenValidationParameters = new TokenValidationParameters
+                {
+                    RoleClaimType = "http://sswmedman/claims/roles"
+                };
             });
 
             services.AddMvc(config =>

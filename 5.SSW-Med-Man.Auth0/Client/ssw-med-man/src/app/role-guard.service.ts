@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-import { JwtHelperService, JwtModule} from '@auth0/angular-jwt'
+import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt'
 import { AuthService } from './auth-zero.service';
 import { Observable, Subscription } from 'rxjs';
-import { map, tap, catchError, mergeMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({
@@ -14,6 +14,7 @@ export class RoleGuardService implements CanActivate {
   constructor(private authService: AuthService, private router: Router, private helper: JwtHelperService) { }
   subscription: Subscription;
   token: string;
+  roles: string[] = [];
 
   ngOnInit(){
     this.subscription = this.authService.tokenSource$.subscribe(token => {
@@ -33,9 +34,18 @@ export class RoleGuardService implements CanActivate {
         console.log("Expected role:");
         console.log(expectedRole);
         let actualRole = tokenPayload.role;
-        console.log("Actual role:");
-        console.log(actualRole);
-        if(this.authService.loggedIn && expectedRole == actualRole){
+        for(let key in tokenPayload){
+          var sections = key.split('/');
+          var actualKey = sections[sections.length -1];
+          if(actualKey.toLowerCase() == 'roles'){
+            var roles = tokenPayload[key];
+            for(let role of roles){
+              this.roles.push(role);
+              console.log("Role found in array:" + role);
+            }
+          }
+        }
+        if(this.authService.loggedIn && expectedRole == actualRole || this.roles.includes(expectedRole)){
           return true;
         }
         else{
