@@ -54,6 +54,8 @@ export class AddAdministrationComponent implements OnInit {
   }
 
   displayPatientFn(patient?: PatientDTO): string | undefined {
+    console.log("Received patient: " + patient);
+    console.log("Returning display value: " + patient.fullName);
     return patient ? patient.fullName : undefined;
   }
 

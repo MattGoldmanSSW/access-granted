@@ -44,6 +44,10 @@ export class RoleGuardService implements CanActivate {
               console.log("Role found in array:" + role);
             }
           }
+          if(actualKey.toLowerCase() == 'role'){
+            this.roles.push(tokenPayload[key]);
+            console.log("Role found in token: " + tokenPayload[key]);
+          }
         }
         if(this.authService.loggedIn && expectedRole == actualRole || this.roles.includes(expectedRole)){
           return true;
