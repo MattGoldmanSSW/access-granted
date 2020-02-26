@@ -65,8 +65,10 @@ export class AddAdministrationComponent implements OnInit {
 
   addAdministration(){
     this.addAdminDTO.dose = +this.doseControl.value;
-    this.addAdminDTO.medication.id = this.medicationControl.value;
-    this.addAdminDTO.patient.id = this.patientControl.value;
+    var med = this.medicationControl.value as MedicationDTO;
+    this.addAdminDTO.medication.id = med.id;
+    var pat = this.patientControl.value as PatientDTO;
+    this.addAdminDTO.patient.id = pat.id;
     this.addAdminDTO.timeGiven = new Date();
     console.log("Administering medication:");
     console.log(this.addAdminDTO);

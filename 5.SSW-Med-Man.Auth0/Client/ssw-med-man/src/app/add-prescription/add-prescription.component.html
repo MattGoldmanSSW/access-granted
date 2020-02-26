@@ -21,7 +21,7 @@
             <mat-form-field>
                 <input name="medicationInput" matInput placeholder="Medication" [matAutocomplete]="med" [formControl]="medicationControl">
                 <mat-autocomplete #med="matAutocomplete" [displayWith]="displayMedicationFn">
-                    <mat-option *ngFor="let medication of filteredMeds | async" [value]="medication.id">
+                    <mat-option *ngFor="let medication of filteredMeds | async" [value]="medication">
                     <span>{{medication.name}}</span>
                     </mat-option>
                 </mat-autocomplete>

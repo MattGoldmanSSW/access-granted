@@ -63,8 +63,10 @@ export class AddPrescriptionComponent implements OnInit {
 
   addPrescription(){
     this.addScriptDTO.dose = +this.doseControl.value;
-    this.addScriptDTO.medication.id = this.medicationControl.value;
-    this.addScriptDTO.patient.id = this.patientControl.value;
+    var med = this.medicationControl.value as MedicationDTO;
+    this.addScriptDTO.medication.id = med.id;
+    var pat = this.patientControl.value as PatientDTO;
+    this.addScriptDTO.patient.id = pat.id;
     console.log("Adding prescription:");
     console.log(this.addScriptDTO);
     this.scriptClient.postPrescription(this.addScriptDTO)
