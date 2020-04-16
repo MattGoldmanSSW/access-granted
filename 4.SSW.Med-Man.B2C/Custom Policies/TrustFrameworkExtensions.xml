@@ -2,10 +2,10 @@
                       xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                       xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
                       PolicySchemaVersion="0.3.0.0"
-                      TenantId="goldiessw.onmicrosoft.com"
+                      TenantId="[replace with your tenant ID]"
                       PolicyId="B2C_1A_TrustFrameworkExtensions"
-                      PublicPolicyUri="http://goldiessw.onmicrosoft.com/B2C_1A_TrustFrameworkExtensions"
-                      TenantObjectId="22836d53-fdb2-46c1-be8b-5d81e4059afc">
+                      PublicPolicyUri="http://[replace with your tenant ID]/B2C_1A_TrustFrameworkExtensions"
+                      TenantObjectId="[replace with your tenant object id]">
 
   <BasePolicy>
     <TenantId>goldiessw.onmicrosoft.com</TenantId>
@@ -38,7 +38,7 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="Facebook-OAUTH">
           <Metadata>
-            <Item Key="client_id">486376462051198</Item>
+            <Item Key="client_id">[replace with facebook client id]</Item>
             <Item Key="scope">email public_profile</Item>
             <Item Key="ClaimsEndpoint">https://graph.facebook.com/me?fields=id,first_name,last_name,name,email</Item>
           </Metadata>
@@ -51,12 +51,12 @@
       <TechnicalProfiles>
         <TechnicalProfile Id="login-NonInteractive">
           <Metadata>
-            <Item Key="client_id">5c586387-0e03-4c54-a787-f07ac3f50efb</Item>
-            <Item Key="IdTokenAudience">c9c90755-13b0-462d-a35e-d92d4ffa8c97</Item>
+            <Item Key="client_id">[replace with B2C client id]</Item>
+            <Item Key="IdTokenAudience">[replace with B2C token audience</Item>
           </Metadata>
           <InputClaims>
-            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="5c586387-0e03-4c54-a787-f07ac3f50efb" />
-            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="c9c90755-13b0-462d-a35e-d92d4ffa8c97" />
+            <InputClaim ClaimTypeReferenceId="client_id" DefaultValue="[replace]" />
+            <InputClaim ClaimTypeReferenceId="resource_id" PartnerClaimType="resource" DefaultValue="[replace]" />
           </InputClaims>
         </TechnicalProfile>
       </TechnicalProfiles>
@@ -69,7 +69,7 @@
           <DisplayName>Azure Function Web Hook</DisplayName>
           <Protocol Name="Proprietary" Handler="Web.TPEngine.Providers.RestfulProvider, Web.TPEngine, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" />
           <Metadata>
-            <Item Key="ServiceUrl">https://ssw-medman-roles.azurewebsites.net/api/GetRoles?code=pcCObsFJmDbjdd5bIhUtY9CAczN9H9ZFADChSj6L23O3FzIRyht/7w==</Item>
+            <Item Key="ServiceUrl">[replace with your Azure function URI or other claims exchange endpoint]</Item>
             <Item Key="SendClaimsIn">Body</Item>
             <!-- Set AuthenticationType to Basic or ClientCertificate in production environments -->
             <Item Key="AuthenticationType">None</Item>
