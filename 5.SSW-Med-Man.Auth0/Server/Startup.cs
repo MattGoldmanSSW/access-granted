@@ -48,7 +48,7 @@ namespace SSW.Med_Man.MVC
             })
             .AddJwtBearer(jwtOptions =>
             {
-                jwtOptions.Authority = "https://accessgranted.au.auth0.com/";
+                jwtOptions.Authority = "https://[replace with your Auth0 domain]/";
                 jwtOptions.Audience = "https://localhost:44348/api";
                 jwtOptions.TokenValidationParameters = new TokenValidationParameters
                 {
