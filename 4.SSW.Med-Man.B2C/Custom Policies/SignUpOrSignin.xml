@@ -4,10 +4,10 @@
   xmlns:xsd="http://www.w3.org/2001/XMLSchema"
   xmlns="http://schemas.microsoft.com/online/cpim/schemas/2013/06"
   PolicySchemaVersion="0.3.0.0"
-  TenantId="goldiessw.onmicrosoft.com"
+  TenantId="[replace with your tenant ID]"
   DeploymentMode="Development"
   PolicyId="B2C_1A_signup_signin"
-  PublicPolicyUri="http://goldiessw.onmicrosoft.com/B2C_1A_signup_signin">
+  PublicPolicyUri=[replace with your tenant ID]/B2C_1A_signup_signin">
 
   <BasePolicy>
     <TenantId>goldiessw.onmicrosoft.com</TenantId>
